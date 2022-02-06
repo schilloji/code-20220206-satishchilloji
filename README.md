@@ -17,3 +17,5 @@ Activate the Conda environment
 Keep the `json` file under the `data` folder and Run the file `code.py` in the below format. Here you need to mention the path to `json` file after `--json_path` to produce the desired output. 
 
 `python code.py --json_path /data/json_file.json`
+
+Refer the `data/health_risk.csv` for the desired output.
