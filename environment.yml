@@ -1,9 +1,16 @@
-name: HYBRID_CLOUD
+name: ASSMENT
 channels:
   - defaults
   - conda-forge
 dependencies:
   - numpy=1.19.0
+  - nltk=3.6.2
+  - tqdm=4.59.0
+  - pip=21.1.2
+  - urllib3==1.26.7
+  - scikit-learn=0.21.2
+  - matplotlib=3.0.3
+  - seaborn=0.11.2
   - pandas~=1.3.4
   - pip:
     - nltk
