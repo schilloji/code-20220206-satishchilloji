@@ -4,16 +4,26 @@ import argparse
 import warnings
 import os
 
+from utils.calculations import bmi_category,health_risk
 
 ## Load the json data
 
-'''class loadjson(dataset):
+class loadjson:
 
 	def __init__(self,data):
 		self.data=data
 
 
-	def load(self):'''
+	def load(self):
+		df=self.data
+
+		df['HeightM']=df['HeightCm'].apply(lambda x: x/100)
+		df['BMI']=df['WeightKg']/df['HeightM']
+		df['BMI_Category']=df['BMI'].apply(lambda x: bmi_category(x))
+		df['Health_Risk']=df['BMI'].apply(lambda x: health_risk(x))
+
+		return df
+
 
 
 if __name__=='__main__':
@@ -31,7 +41,12 @@ if __name__=='__main__':
 		json_data=json.load(json_file)
 
 	json_df=pd.json_normalize(json_data)
-	print(json_df)
+
+	data_=loadjson(json_df)
+	print(data_.load())
+
+	
+
 
 
 	
