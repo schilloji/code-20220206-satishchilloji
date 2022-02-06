@@ -17,13 +17,12 @@ class loadjson:
 	def load(self):
 		df=self.data
 
-		df['HeightM']=df['HeightCm'].apply(lambda x: x/100)
-		df['BMI']=df['WeightKg']/df['HeightM']
+		df['Height_mt2']=df['HeightCm'].apply(lambda x: (x/100)^2)
+		df['BMI']=df['WeightKg']/df['Height_mt2']
 		df['BMI_Category']=df['BMI'].apply(lambda x: bmi_category(x))
 		df['Health_Risk']=df['BMI'].apply(lambda x: health_risk(x))
 
 		return df
-
 
 
 if __name__=='__main__':
