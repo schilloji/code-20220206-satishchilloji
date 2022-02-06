@@ -1,3 +1,4 @@
+from cmath import sqrt
 import pandas as pd
 import json
 import argparse
@@ -17,14 +18,13 @@ class loadjson:
 	def load(self):
 		df=self.data
 
-		df['HeightM']=df['HeightCm'].apply(lambda x: x/100)
-		df['BMI']=df['WeightKg']/df['HeightM']
-		df['BMI_Category']=df['BMI'].apply(lambda x: bmi_category(x))
-		df['Health_Risk']=df['BMI'].apply(lambda x: health_risk(x))
-
-		return df
-
-
+		df['Height_mt2']=df['HeightCm'].apply(lambda x: (x/100)*(x/100))
+		df['BMI']=df['WeightKg']/df['Height_mt2']
+		df['BMI_Category']=df['BMI'].apply(lambda x: bmi_category(x)) # Calling the functions from the calculations
+		df['Health_Risk']=df['BMI'].apply(lambda x: health_risk(x)) # Calling the functions from the calculations
+		df.to_csv('data/helth_risk.csv',index=False)
+		Overweight=len(df[df['BMI_Category']=='Overweight'])
+		return Overweight
 
 if __name__=='__main__':
 	warnings.filterwarnings("ignore")
@@ -43,7 +43,8 @@ if __name__=='__main__':
 	json_df=pd.json_normalize(json_data)
 
 	data_=loadjson(json_df)
-	print(data_.load())
+	Overweight=data_.load()
+	print(f'There are {Overweight} Overweight people in the given data set')
 
 	
 
